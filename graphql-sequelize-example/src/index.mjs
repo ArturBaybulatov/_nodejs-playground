@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import express from 'express';
+import cors from 'cors';
 
 
 const log = function(val) { console.log(val); return val }; // Debug
@@ -15,6 +16,8 @@ const Product = sequelize.define('products', {
 
 const app = express();
 
+app.use(cors());
+
 
 app.get('/', async function(req, res) {
     const products = await Product.findAll();
@@ -23,4 +26,8 @@ app.get('/', async function(req, res) {
 });
 
 
-app.listen(8765);
+const PORT = 8765;
+
+app.listen(PORT);
+
+console.log(`App served at http://localhost:${ PORT }/`);
