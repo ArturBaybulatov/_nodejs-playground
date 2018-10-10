@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "play": "nodemon _play.js"
   },
   "keywords": [],
   "author": "",

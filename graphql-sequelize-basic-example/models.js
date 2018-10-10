@@ -1,7 +1,10 @@
 const Sequelize = require('sequelize');
 
 
-const sequelize = module.exports._sequelize = new Sequelize('sqlite:northwind.sqlite');
+const sequelize = module.exports._sequelize = new Sequelize('sqlite:northwind.sqlite', {
+    define: { timestamps: false, freezeTableName: true },
+    logging: false,
+});
 
 
 const Product = module.exports.Product = sequelize.define('Product', {
@@ -12,7 +15,7 @@ const Product = module.exports.Product = sequelize.define('Product', {
     QuantityPerUnit: { type: Sequelize.STRING },
     UnitPrice: { type: Sequelize.FLOAT },
     UnitsInStock: { type: Sequelize.INTEGER },
-}, { timestamps: false, freezeTableName: true });
+});
 
 
 const Supplier = module.exports.Supplier = sequelize.define('Supplier', {
@@ -26,15 +29,18 @@ const Supplier = module.exports.Supplier = sequelize.define('Supplier', {
     Postalcode: { type: Sequelize.STRING },
     Country: { type: Sequelize.STRING },
     Phone: { type: Sequelize.STRING },
-}, { timestamps: false, freezeTableName: true });
+});
 
 
 const Category = module.exports.Category = sequelize.define('Category', {
     Id: { type: Sequelize.INTEGER, primaryKey: true },
     CategoryName: { type: Sequelize.STRING, allowNull: false },
     Description: { type: Sequelize.STRING },
-}, { timestamps: false, freezeTableName: true });
+});
 
 
+Supplier.hasMany(Product, { foreignKey: 'SupplierId', sourceKey: 'Id' });
 Product.belongsTo(Supplier, { foreignKey: 'SupplierId', targetKey: 'Id' });
+
+Category.hasMany(Product, {foreignKey: 'CategoryId', sourceKey: 'Id'});
 Product.belongsTo(Category, { foreignKey: 'CategoryId', targetKey: 'Id' });
