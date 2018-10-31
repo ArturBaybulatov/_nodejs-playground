@@ -12,7 +12,7 @@ app.use(cors());
 app.use('/', async function(req, res, next) {
     let products;
 
-    try { products = await models.Product.findAll({ where1: { SupplierId: 1 } }) }
+    try { products = await models.Product.findAll({ where: { SupplierId: 1 } }) }
     catch (err) { return next(err) }
 
     res.json(products);
