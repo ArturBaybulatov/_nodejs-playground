@@ -6,18 +6,20 @@ const schema = require('./schema.js');
 const models = require('./models.js');
 
 
-const app = express();
+const init = async function() {
+    const app = express();
 
-app.use(cors());
+    app.use(cors());
 
-app.use('/', graphqlHttp({ schema, graphiql: true }));
+    app.use('/', graphqlHttp({ schema, graphiql: true }));
 
 
-models._sequelize.sync()
-    .then(function() {
-        const PORT = 8765;
-        app.listen(PORT);
-        console.log(`App served at http://localhost:${ PORT }/`);
-    })
+    await models._sequelize.sync();
 
-    .catch(console.error);
+    const PORT = 8765;
+    app.listen(PORT);
+    console.log(`App served at http://localhost:${ PORT }/`);
+};
+
+
+init();
