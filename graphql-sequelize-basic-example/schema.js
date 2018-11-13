@@ -31,7 +31,7 @@ const supplierType = new graphql.GraphQLObjectType({
         products: {
             type: new graphql.GraphQLList(productType),
             args: Object.assign(graphqlSequelize.defaultArgs(models.Product), graphqlSequelize.defaultListArgs()),
-            resolve: graphqlSequelize.resolver(models.Product),
+            resolve: graphqlSequelize.resolver(models.Supplier.associations.Products),
         },
     }),
 });
@@ -44,7 +44,7 @@ const categoryType = new graphql.GraphQLObjectType({
         products: {
             type: new graphql.GraphQLList(productType),
             args: Object.assign(graphqlSequelize.defaultArgs(models.Product), graphqlSequelize.defaultListArgs()),
-            resolve: graphqlSequelize.resolver(models.Product),
+            resolve: graphqlSequelize.resolver(models.Category.associations.Products),
         },
     }),
 });
