@@ -12,13 +12,13 @@ const productType = new graphql.GraphQLObjectType({
         supplier: {
             type: supplierType,
             args: Object.assign(graphqlSequelize.defaultArgs(models.Supplier), graphqlSequelize.defaultListArgs()),
-            resolve: graphqlSequelize.resolver(models.Supplier),
+            resolve: graphqlSequelize.resolver(models.Product.associations.Supplier),
         },
 
         category: {
             type: categoryType,
             args: Object.assign(graphqlSequelize.defaultArgs(models.Category), graphqlSequelize.defaultListArgs()),
-            resolve: graphqlSequelize.resolver(models.Category),
+            resolve: graphqlSequelize.resolver(models.Product.associations.Category),
         },
     }),
 });
